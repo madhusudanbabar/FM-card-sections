@@ -17,6 +17,29 @@
     --light-gray: hsl(0, 0%, 98%);
 }
 
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+      @media only screen and (min-width: 37.5em) {
+        @content;
+      } // 600 px = 37.5em
+    }
+    @if $breakpoint == tab-port {
+      @media only screen and (min-width: 56.2em) {
+        @content;
+      } // 900 px = 56.2em
+    }
+    @if $breakpoint == tab-land {
+      @media only screen and (min-width: 75em) {
+        @content;
+      } // 1200 px = 75em
+    }
+    @if $breakpoint == big-desktop {
+      @media only screen and (min-width: 112.5em) {
+        @content;
+      } // 1800 px = 112em
+    }
+  }
+
 html{
     height: 100%;
     // font-size: 42%;
@@ -56,21 +79,39 @@ body{
         margin-top: 1rem;
         text-align: center;
         color: var(--gray-blue);
+        max-width: 600px;
     }
 
     &__card-box{
         display: flex;
         flex-direction: column;
+        align-items: stretch;
+        margin: 0 auto;
+        justify-content: center;
+        
+        &--vertical{
+            flex: 1 1 33%;
+            @include respond(tab-land){
+                flex: 1 0 33%;
+            }
+        }
+        
+        @include respond(tab-land){
+            align-items: center;
+            flex-direction: row;
+        }
     }
 
     &__card{
         display: flex;
         flex-direction: column;
-        justify-content: stretch;
+        // justify-content: stretch;
         padding: 2rem 2rem 1.75rem 2rem;
         background: white;
         border-radius: .5rem;
         margin: 1rem;
+        flex: 1 1 100%;
+        max-width: 400px;
         box-shadow: 0 2rem 3.5rem -2rem var(--gray-blue);
         // filter: drop-shadow(0 1rem 2.5rem -1rem var(--red));
         overflow: hidden;
